@@ -1,18 +1,23 @@
 import React, {useState} from "react";
 
-export const Eduction = () =>{
+export const Eduction = ({onSubmit}) =>{
     const [formData, setFormData] = useState({school:" ", degree:" ", city:" ", startDate:" ", graduationDate:" "});
 
     const handleChange = (e) =>{
-        const [name, value] = e.target;
+        const {name, value} = e.target;
         setFormData({...formData, [name]:value});
+    }
+
+    const handleSubmit = (e) =>{
+      e.preventDefault();
+      onSubmit(formData);
     }
 
     return(
         <>
         <h1>Education</h1>
         <h4>Fill out your academic infromation.</h4>
-        <form style={{display:"flex", flexDirection:"column", gap:"2rem"}}>
+        <form onSubmit={handleSubmit} style={{display:"flex", flexDirection:"column", gap:"2rem"}}>
             <div style={{display:"flex", flexDirection:"column", gap:"1rem"}}>
                 <label htmlFor="school">School</label>
                 <input
@@ -75,6 +80,7 @@ export const Eduction = () =>{
                         </div>
                       ))}
             </div>
+            <button type="submit" style={{ padding:"5px", margin:"2rem 0rem 0rem 9rem"}}>Submit</button>
         </form>
         </>
     );

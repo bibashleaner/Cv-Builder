@@ -1,11 +1,12 @@
 import React from 'react'
-// import {About} from './components/About.jsx'
-import { Eduction } from './components/Eduction';
+import {Button} from './components/Buttons'
+import { TextBox } from './components/Textbox';
 
 function App() {
     return(
         <div className="app-wrapper">
-           <Eduction />
+           <Button />
+           <TextBox />
         </div>
     );
 }

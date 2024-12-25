@@ -1,18 +1,24 @@
 import React from "react";
+import { useState } from "react";
 
-export const Experience = () =>{
+export const Experience = ({onSubmit}) =>{
     const [formData, setFormData] = useState({jobTitle:" ", companyName:" ", location:" ", startDate:" ", endDate:" "});
     
     const handleChange = (e) =>{
-        const [name, value] = e.target;
+        const {name, value} = e.target;
         setFormData({...formData, [name]:value});
+    }
+
+    const handleSubmit = (e) =>{
+      e.preventDefault();
+      onSubmit(formData);
     }
     
     return(
         <>
         <h1>Work Experience</h1>
         <h4>Include your career history. Give a brief insight into the role you played.</h4>
-        <form style={{display:"flex", flexDirection:"column", gap:"2rem"}}>
+        <form onSubmit={handleSubmit} style={{display:"flex", flexDirection:"column", gap:"2rem"}}>
             <div style={{display:"flex", flexDirection:"column", gap:"1rem"}}>
                 <label htmlFor="jobTitle">Job Title</label>
                 <input
@@ -75,7 +81,9 @@ export const Experience = () =>{
                         </div>
                       ))}
             </div>
+            <button type="submit" style={{ padding:"5px", margin:"2rem 0rem 0rem 9rem"}}>Submit</button>
         </form>
+        
         </>
     );
 }
