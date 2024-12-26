@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 
 export const Eduction = ({onSubmit}) =>{
-    const [formData, setFormData] = useState({school:" ", degree:" ", city:" ", startDate:" ", graduationDate:" "});
+    const [formData, setFormData] = useState({school:" ", degree:" ", city:" ", joinDate:" ", graduationDate:" "});
 
     const handleChange = (e) =>{
         const {name, value} = e.target;
@@ -59,7 +59,7 @@ export const Eduction = ({onSubmit}) =>{
             </div>
             <div style={{display:"flex", gap:"1rem"}}>
                       {[
-                        {label:"Start Date", name:"startDate"},
+                        {label:"Start Date", name:"joinDate"},
                         {label:"Graduation Date", name:"graduationDate"}
                       ].map(({label, name}) => (
                         <div key={name} style={{display:"flex", flexDirection:"column"}}>
@@ -80,7 +80,16 @@ export const Eduction = ({onSubmit}) =>{
                         </div>
                       ))}
             </div>
-            <button type="submit" style={{ padding:"5px", margin:"2rem 0rem 0rem 9rem"}}>Submit</button>
+            <button type="submit" onClick={handleSubmit} style={{
+              margin: "2rem 87rem 0rem 0rem",
+              padding: "10px 20px",
+              fontSize: "14px",
+              cursor: "pointer",
+              backgroundColor: "#007BFF",
+              color: "#fff",
+              border: "none",
+              borderRadius: "5px",
+            }}>Submit</button>
         </form>
         </>
     );

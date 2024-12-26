@@ -5,15 +5,17 @@ import { Experience } from "./Experience.jsx";
 import { Project } from "./Projects.jsx";
 import { TextBox } from "./Textbox.jsx";
 
+
 export const Button = () =>{
-    const [activeComponent, setActiveComponent] = useState("about");
-    const [submitData, setSubmitData] = useState({});
+    const [activeComponent, setActiveComponent] = useState("about"); //holds the active components
+    const [submitData, setSubmitData] = useState({});  //Holds the submitted data
+
 
     const components = {
-        about: <About onSubmit={(data) => setSubmitData((data) => ({ ...submitData, about: data }))} />,
-        education: <Eduction onSubmit={(data) => setSubmitData((data) => ({ ...submitData, eduction: data }))} />,
-        experience: <Experience onSubmit={(data) => setSubmitData((data) => ({ ...submitData, experience: data }))} />,
-        project: <Project onSubmit={(data) => setSubmitData((data) => ({ ...submitData, project: data }))} />
+        about: <About onSubmit={(data) => setSubmitData((prev) => ({...prev, ...data}))} />,
+        education: <Eduction onSubmit={(data) => setSubmitData((prev) => ({...prev, ...data}))} />,
+        experience: <Experience onSubmit={(data) => setSubmitData((prev) => ({...prev, ...data}))} />,
+        project: <Project onSubmit={(data) => setSubmitData((prev) => ({...prev, ...data}))} />
     };
 
     const tabs = [

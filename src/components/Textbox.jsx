@@ -1,9 +1,12 @@
 import React from "react";
+import { DownloadButton } from "./download";
 
-export const TextBox = ({ data }) => {
+export const TextBox = ({ data, downloadRef }) => {
+
     // Format the data into a CV layout string
     const formatCVData = () => {
-        let cvText = `Curriculum Vitae\n\n`;
+        if (!data) return 'No data available.';
+        let cvText = `\n`;
 
         // Personal Information Section
         if (data.firstName || data.lastName || data.address || data.contact || data.mail || data.summary) {
@@ -16,38 +19,37 @@ export const TextBox = ({ data }) => {
         }
 
         // Education Section
-        if (data.education && data.education.length > 0) {
+        if (data.school || data.degree || data.city || data.joinDate || data.graduationDate) {
             cvText += `Education:\n`;
-            data.education.forEach((edu, index) => {
-                cvText += `  ${index + 1}. Institution: ${edu.institution}\n`;
-                cvText += `     Degree: ${edu.degree}\n`;
-                cvText += `     Year: ${edu.year}\n\n`;
-            });
+            cvText += `- Institution: ${data.institution}\n`;
+            cvText += `- Degree: ${data.degree}\n`;
+            cvText += `- City: ${data.city}\n`;
+            cvText += `- Start Date: ${data.joinDate}\n`;
+            cvText += `- End Date: ${data.graduationDate}\n\n`;
+            
         } else {
             cvText += `Education: No education data submitted.\n\n`;
         }
 
         // Experience Section
-        if (data.experience && data.experience.length > 0) {
+        if (data.jobTitle || data.companyName || data.location || data.startDate || data.endDate) {
             cvText += `Experience:\n`;
-            data.experience.forEach((exp, index) => {
-                cvText += `  ${index + 1}. Company: ${exp.company}\n`;
-                cvText += `     Position: ${exp.position}\n`;
-                cvText += `     Duration: ${exp.duration}\n`;
-                cvText += `     Description: ${exp.description}\n\n`;
-            });
+            cvText += `- Position: ${data.jobTitle}\n`;
+            cvText += `- Company: ${data.companyName}\n`;
+            cvText += `- Location: ${data.location}\n`;
+            cvText += `- Start Date: ${data.startDate}\n`;
+            cvText += `- End Date: ${data.endDate}\n\n`;
         } else {
             cvText += `Experience: No experience data submitted.\n\n`;
         }
 
         // Projects Section
-        if (data.projects && data.projects.length > 0) {
+        if(data.projectTitle || data.description || data.projectLink){
             cvText += `Projects:\n`;
-            data.projects.forEach((project, index) => {
-                cvText += `  ${index + 1}. Title: ${project.title}\n`;
-                cvText += `     Description: ${project.description}\n`;
-                cvText += `     Technologies Used: ${project.technologies}\n\n`;
-            });
+            cvText += `- Title: ${data.projectTitle}\n`;
+            cvText += `- Project Link: ${data.projectLink}\n`;
+            cvText += `- Description: ${data.description}\n\n`;
+            
         } else {
             cvText += `Projects: No project data submitted.\n\n`;
         }
@@ -59,12 +61,14 @@ export const TextBox = ({ data }) => {
     const cvData = formatCVData();
 
     return (
+        <>
         <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
             <textarea
                 value={cvData}
                 readOnly
+                ref={downloadRef}
                 rows="20"
-                cols="80"
+                cols="20"
                 style={{
                     width: "100%",
                     fontFamily: "monospace",
@@ -77,6 +81,10 @@ export const TextBox = ({ data }) => {
                     wordWrap: "break-word",
                 }}
             />
+            <DownloadButton />
         </div>
+        </>
     );
-};
+    
+}
+

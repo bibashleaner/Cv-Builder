@@ -81,7 +81,16 @@ export const Experience = ({onSubmit}) =>{
                         </div>
                       ))}
             </div>
-            <button type="submit" style={{ padding:"5px", margin:"2rem 0rem 0rem 9rem"}}>Submit</button>
+            <button type="submit" onClick={handleSubmit} style={{ 
+              margin: "2rem 87rem 0rem 0rem",
+              padding: "10px 20px",
+              fontSize: "14px",
+              cursor: "pointer",
+              backgroundColor: "#007BFF",
+              color: "#fff",
+              border: "none",
+              borderRadius: "5px",
+            }}>Submit</button>
         </form>
         
         </>
