@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {About} from "./About.jsx"
 import { Eduction } from "./Eduction.jsx";
 import { Experience } from "./Experience.jsx";
@@ -9,6 +9,7 @@ import { TextBox } from "./Textbox.jsx";
 export const Button = () =>{
     const [activeComponent, setActiveComponent] = useState("about"); //holds the active components
     const [submitData, setSubmitData] = useState({});  //Holds the submitted data
+    const downloadRef = useRef(null);
 
 
     const components = {
@@ -45,7 +46,7 @@ export const Button = () =>{
             ))}
         </div>
         <div>{components[activeComponent]}</div>
-        <TextBox data={submitData} />
+        <TextBox data={submitData} downloadRef={downloadRef}/>
         </>
     );
 };

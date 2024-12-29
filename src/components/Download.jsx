@@ -1,32 +1,38 @@
-import React, {useRef} from "react";
+import React from "react";
+import { toPng } from "html-to-image";
 
-export const DownloadButton = () => {
-   
-    const downloadRef = useRef(null);
+export const DownloadButton = ({downloadRef}) => {
 
-    const handleDownload = () =>{
-        const downloadCv = downloadRef.current.toDataURL('image/png');
-        const a = document.createElement('a');
-        a.href = downloadCv;
-        a.download = 'CV.png';
-        a.click();
-    }
+    const handleDownloadButton = () => {
+          if(!downloadRef.current) return;
 
-    return (
-        <button
-            onClick={handleDownload}
-            style={{
-                marginTop: "10px",
-                padding: "10px 20px",
-                fontSize: "14px",
-                cursor: "pointer",
-                backgroundColor: "#007BFF",
-                color: "#fff",
-                border: "none",
-                borderRadius: "5px",
-            }}
-        >
-            Download CV
-        </button>
+          toPng(downloadRef.current)
+            .then((dataUrl) => {
+                const link = document.createElement("a");
+                link.href = dataUrl;
+                link.download = "CV.png";
+                link.click();
+            })
+            .catch((error) => {
+                console.error("Could not generate the image", error);
+            });
+    };
+
+    return(
+     <button
+          onClick={handleDownloadButton}
+          style={{
+               marginTop: "1rem",
+               padding: "10px 20px",
+               fontSize: "14px",
+               cursor: "pointer",
+               backgroundColor: "#007BFF",
+               color: "#fff",
+               border: "none",
+               borderRadius: "5px",
+           }}
+     >
+          Download
+     </button>
     );
 }

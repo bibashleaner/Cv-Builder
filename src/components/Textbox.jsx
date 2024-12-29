@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useRef} from "react";
 import { DownloadButton } from "./download";
 
-export const TextBox = ({ data, downloadRef }) => {
+export const TextBox = ({ data }) => {
+    const downloadRef = useRef(null);
 
     // Format the data into a CV layout string
     const formatCVData = () => {
@@ -63,12 +64,12 @@ export const TextBox = ({ data, downloadRef }) => {
     return (
         <>
         <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
-            <textarea
-                value={cvData}
-                readOnly
+            <div
                 ref={downloadRef}
-                rows="20"
-                cols="20"
+                // value={cvData}
+                // readOnly
+                // rows="20"
+                // cols="20"
                 style={{
                     width: "100%",
                     fontFamily: "monospace",
@@ -80,8 +81,10 @@ export const TextBox = ({ data, downloadRef }) => {
                     whiteSpace: "pre-wrap",
                     wordWrap: "break-word",
                 }}
-            />
-            <DownloadButton />
+            >
+                {cvData}
+            </div>
+            <DownloadButton downloadRef={downloadRef} />
         </div>
         </>
     );
